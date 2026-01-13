@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cardápio Completo | Empadão da Tânia</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header id="main-header" class="header-scrolled"> 
+        <div class="container header-content">
+            <div class="logo">
+                <a href="index.html" style="display:flex; align-items:center; gap:10px;">
+                    <span class="logo-icon">🥧</span>
+                    <h1>Empadão da Tânia</h1>
+                </a>
+            </div>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="index.html#sobre">História</a>
+                <a href="cardapio.html" class="active">Cardápio</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h2>Nosso Cardápio Completo</h2>
+            <p>Selecione seus favoritos e peça pelo WhatsApp</p>
+        </div>
+    </section>
+
+    <section id="full-menu-section">
+        <div class="container">
+            <div class="menu-tabs">
+                <button class="tab-btn active" data-category="media">Médias</button>
+                <button class="tab-btn" data-category="tigela">Na Tigela</button>
+                <button class="tab-btn" data-category="panelinha">Panelinhas</button>
+                <button class="tab-btn" data-category="tapioca">Tapiocas</button>
+                <button class="tab-btn" data-category="sobremesa">Doces</button>
+                <button class="tab-btn" data-category="bebida">Bebidas</button>
+            </div>
+
+            <div id="menu-grid" class="menu-grid"></div>
+        </div>
+    </section>
+
+    <div id="cart-btn" class="cart-floater hidden">
+        <span class="cart-icon">🛒</span>
+        <span id="cart-count" class="cart-count">0</span>
+    </div>
+
+    <div id="cart-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Seu Pedido</h3>
+                <button id="close-cart" class="close-btn">&times;</button>
+            </div>
+            <div id="cart-items" class="modal-body"></div>
+            <div class="modal-footer">
+                <div class="total-row">
+                    <span>Total:</span>
+                    <span id="cart-total">R$ 0,00</span>
+                </div>
+                <div class="checkout-form">
+                    <input type="text" id="client-name" placeholder="Seu Nome" />
+                    <select id="delivery-type">
+                        <option value="retirada">Vou Retirar</option>
+                        <option value="entrega">Quero Entrega</option>
+                    </select>
+                </div>
+                <button id="checkout-btn" class="btn btn-whatsapp">Finalizar no WhatsApp 📲</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Empadão Goiano da Tânia. Caldas Novas - GO</p>
+        </div>
+    </footer>
+
+    <script type="module" src="./script.js"></script>
+</body>
+</html>

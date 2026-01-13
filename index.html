@@ -1,34 +1,131 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="pt-BR">
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Empadão Goiano da Tânia</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <link rel="stylesheet" href="/style.css">
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-      }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
-    "@google/genai": "https://esm.sh/@google/genai@^1.35.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "three": "https://esm.sh/three@0.164.1",
-    "three/addons/": "https://esm.sh/three@0.164.1/examples/jsm/",
-    "three/": "https://esm.sh/three@^0.182.0/"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
+    <title>Empadão Goiano da Tânia | Caldas Novas</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
 </head>
-  <body class="bg-amber-50">
-    <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
-  </body>
+<body>
+
+    <header id="main-header">
+        <div class="container header-content">
+            <div class="logo">
+                <span class="logo-icon">🥧</span>
+                <h1>Empadão da Tânia</h1>
+            </div>
+            <nav>
+                <a href="#hero">Início</a>
+                <a href="#sobre">História</a>
+                <a href="cardapio.html" class="btn-menu">Ver Cardápio Completo</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="hero-bg-parallax"></div>
+        <div class="container hero-grid">
+            <div class="hero-text fade-in">
+                <h2>O Verdadeiro Sabor de Goiás</h2>
+                <p>Massa artesanal que derrete na boca. Uma tradição de família feita para você.</p>
+                <div class="hero-btns">
+                    <a href="cardapio.html" class="btn btn-primary">Fazer Pedido</a>
+                    <a href="#sobre" class="btn btn-outline">Conheça a Tânia</a>
+                </div>
+            </div>
+            <div class="hero-3d-container" id="canvas-container"></div>
+        </div>
+    </section>
+
+    <section id="sobre" class="scroll-reveal">
+        <div class="container about-grid">
+            <div class="about-image">
+                <img src="/img/historia-tania.jpg" alt="Tânia e sua família" onerror="this.src='https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=600&auto=format&fit=crop'">
+                <div class="about-badge">Desde 2004</div>
+            </div>
+            
+            <div class="about-text">
+                <h3>Sabor que Une Mãe e Filhos</h3>
+                <h4 style="font-family: var(--font-heading); color: var(--primary-dark); margin-bottom: 20px; font-size: 1.2rem;">Uma trajetória de fé, coragem e muito tempero.</h4>
+                
+                <p>Nossa história começa em <strong>2004</strong>, quando Tânia chegou a Caldas Novas com três filhos pequenos, uma separação difícil na bagagem e a necessidade urgente de recomeçar. Sem recursos, mas com muita vontade, ela encontrou na cozinha sua força.</p>
+                
+                <p>Tudo começou com a ajuda de vizinhos e da mãe, que doaram os primeiros ingredientes. Tânia fazia <strong>mini-pizzas</strong> e saía de porta em porta — em hotéis, bancos e comércios — vendendo para sustentar a família. Mas ela sentia que podia mais.</p>
+                
+                <p>Foi quando decidiu apostar no <strong>Empadão Goiano</strong>. A receita, feita com massa que derrete na boca e recheio farto, conquistou a cidade. O que era venda ambulante virou um ponto turístico obrigatório.</p>
+                
+                <p style="margin-top: 15px; border-left: 4px solid var(--primary); padding-left: 15px; font-style: italic; color: #666;">
+                    "Hoje, cada empadão servido carrega essa essência: a união de uma mãe com seus filhos e o amor por alimentar bem."
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="destaques" class="scroll-reveal">
+        <div class="container">
+            <div class="section-title">
+                <h3>Os Favoritos da Casa</h3>
+                <p>Aqueles que todo mundo ama. Experimente e entenda o porquê.</p>
+            </div>
+
+            <div id="highlights-grid" class="menu-grid"></div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="cardapio.html" class="btn btn-outline">Ver Todas as Opções &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Empadão Goiano da Tânia. Caldas Novas - GO</p>
+        </div>
+    </footer>
+
+    <div id="cart-btn" class="cart-floater hidden">
+        <span class="cart-icon">🛒</span>
+        <span id="cart-count" class="cart-count">0</span>
+    </div>
+    
+    <div id="cart-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Seu Pedido</h3>
+                <button id="close-cart" class="close-btn">&times;</button>
+            </div>
+            <div id="cart-items" class="modal-body"></div>
+            <div class="modal-footer">
+                <div class="total-row">
+                    <span>Total:</span>
+                    <span id="cart-total">R$ 0,00</span>
+                </div>
+                <div class="checkout-form">
+                    <input type="text" id="client-name" placeholder="Seu Nome" />
+                    <select id="delivery-type">
+                        <option value="retirada">Vou Retirar</option>
+                        <option value="entrega">Quero Entrega</option>
+                    </select>
+                </div>
+                <button id="checkout-btn" class="btn btn-whatsapp">Finalizar no WhatsApp 📲</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./empadao3d.js"></script>
+    <script type="module" src="./script.js"></script>
+</body>
 </html>
