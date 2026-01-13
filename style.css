@@ -1,0 +1,19 @@
+/*
+  This file contains global styles and animations for the AI Recipe Suggester app.
+*/
+
+/*
+  Animation classes for elements that fade and slide in on scroll.
+  Applied by the AnimateOnScroll component.
+*/
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform; /* Performance optimization */
+}
+
+.scroll-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

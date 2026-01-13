@@ -1,0 +1,5 @@
+{
+  "name": "AI Recipe Suggester",
+  "description": "An AI-powered application that generates creative recipes based on the ingredients you have on hand. It provides a unique recipe name, a delicious description, and step-by-step instructions.",
+  "requestFramePermissions": []
+}
