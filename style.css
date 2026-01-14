@@ -203,6 +203,36 @@ nav a:hover { color: var(--primary); }
     display: flex; flex-direction: column;
     animation: slideIn 0.3s ease-out;
 }
+
+/* Checkout Profissional */
+.checkout-form {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+.checkout-form label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: var(--secondary);
+    display: block;
+    margin-bottom: 5px;
+}
+.input-group { margin-bottom: 10px; }
+.input-group input, .checkout-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+.hidden { display: none; }
+.secure-msg {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 10px;
+}
 @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
 
 .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
@@ -295,4 +325,42 @@ nav a:hover { color: var(--primary); }
 .menu-tabs {
     flex-wrap: wrap; /* Permite quebrar linha */
     justify-content: center;
+}
+
+/* Novos Estilos para Botões de Ação */
+.item-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px; /* Espaço entre o link e o botão + */
+}
+
+.btn-icon-link {
+    background: #f0f0f0;
+    color: var(--secondary);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: 0.2s;
+    border: 1px solid #ddd;
+}
+
+.btn-icon-link:hover {
+    background: #e2e2e2;
+    transform: scale(1.1);
+}
+
+.add-btn {
+    /* Mantém o estilo anterior, só garante que o tamanho combine */
+    width: 35px; height: 35px;
 }

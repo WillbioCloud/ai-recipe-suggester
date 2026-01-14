@@ -10,7 +10,11 @@ const highlightsGrid = document.getElementById('highlights-grid');
 const tabs = document.querySelectorAll('.tab-btn');
 
 // Função para criar o HTML do Card
+// Função para criar o HTML do Card com opção Anota.ai
 function createCardHTML(item) {
+    // Se tiver link específico, usa ele. Se não, usa o geral da loja.
+    const targetLink = item.anotaAiLink || 'https://pedido.anota.ai/loja/empado-goiano-da-tnia-caldas-novas';
+
     return `
         <div class="menu-item fade-in">
             <img src="${item.image}" alt="${item.name}" class="item-img" onerror="this.src='https://via.placeholder.com/300?text=Foto+do+Prato'">
@@ -18,8 +22,17 @@ function createCardHTML(item) {
                 <h4>${item.name}</h4>
                 <p class="item-desc">${item.description}</p>
                 <div class="item-footer">
-                    <span class="price">R$ ${item.price.toFixed(2).replace('.', ',')}</span>
-                    <button onclick="window.addToCart(${item.id})" class="add-btn" aria-label="Adicionar">+</button>
+                    <div class="price-box">
+                        <span class="price">R$ ${item.price.toFixed(2).replace('.', ',')}</span>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <a href="${targetLink}" target="_blank" class="btn-icon-link" aria-label="Ver no Anota.ai" title="Pedir pelo Anota.ai">
+                            🔗
+                        </a>
+
+                        <button onclick="window.addToCart(${item.id})" class="add-btn" aria-label="Adicionar ao Carrinho WhatsApp">+</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -128,41 +141,73 @@ function updateCartUI() {
     cartTotal.innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
 }
 
-// Modal e Checkout
-const modal = document.getElementById('cart-modal');
-const closeBtn = document.getElementById('close-cart');
-const cartBtn = document.getElementById('cart-btn');
-const checkoutBtn = document.getElementById('checkout-btn');
+/* --- LÓGICA DE CHECKOUT PROFISSIONAL --- */
 
-if (cartBtn && modal) {
-    cartBtn.addEventListener('click', () => modal.classList.remove('hidden'));
-    closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) modal.classList.add('hidden');
-    });
-}
+// Controle de Campos do Modal
+window.toggleAddressField = () => {
+    const type = document.getElementById('order-type').value;
+    const fieldAddress = document.getElementById('field-extra');
+    const fieldTable = document.getElementById('field-table');
+
+    // Reseta visibilidade
+    fieldAddress.classList.add('hidden');
+    fieldTable.classList.add('hidden');
+
+    if (type === 'delivery') {
+        fieldAddress.classList.remove('hidden');
+    } else if (type === 'mesa') {
+        fieldTable.classList.remove('hidden');
+    }
+};
+
+// Formatação e Envio
+const checkoutBtn = document.getElementById('checkout-btn');
 
 if (checkoutBtn) {
     checkoutBtn.addEventListener('click', () => {
         const name = document.getElementById('client-name').value;
-        const delivery = document.getElementById('delivery-type').value;
+        const type = document.getElementById('order-type').value;
+        const address = document.getElementById('client-address').value;
+        const table = document.getElementById('table-number').value;
+        const obs = document.getElementById('client-obs').value;
 
-        if (!name) {
-            alert('Por favor, digite seu nome!');
-            return;
-        }
+        // Validação
+        if (!name) { alert('Por favor, informe seu nome.'); return; }
+        if (type === 'delivery' && !address) { alert('Por favor, informe o endereço de entrega.'); return; }
+        if (type === 'mesa' && !table) { alert('Por favor, informe o número da mesa.'); return; }
+        if (cart.length === 0) { alert('Seu carrinho está vazio.'); return; }
 
-        let message = `*Olá, Empadão da Tânia! Gostaria de fazer um pedido:*%0A%0A`;
+        // Construindo a mensagem estilo "Ticket Fiscal"
+        let msg = `*NOVO PEDIDO - SITE* 🛒%0A`;
+        msg += `--------------------------------%0A`;
+        
+        // Tipo de Pedido (Destaque)
+        if (type === 'mesa') msg += `🍽️ *NA MESA: ${table}*%0A`;
+        else if (type === 'balcao') msg += `🥡 *RETIRADA BALCÃO*%0A`;
+        else msg += `🛵 *DELIVERY*%0A`;
+        
+        msg += `👤 Cliente: *${name}*%0A`;
+        msg += `--------------------------------%0A`;
+        
+        // Itens
         cart.forEach(item => {
-            message += `- ${item.quantity}x ${item.name}%0A`;
+            msg += `• ${item.quantity}x ${item.name}%0A`;
+            // Se quiser colocar obs por item, seria aqui
         });
         
-        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        message += `%0A*Total: R$ ${total.toFixed(2).replace('.', ',')}*`;
-        message += `%0A%0A👤 *Cliente:* ${name}`;
-        message += `%0A🚚 *Forma:* ${delivery === 'entrega' ? 'Entrega' : 'Retirada'}`;
+        msg += `--------------------------------%0A`;
+        const total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+        msg += `💰 *TOTAL: R$ ${total.toFixed(2).replace('.', ',')}*%0A`;
+        
+        if (obs) msg += `📝 Obs: ${obs}%0A`;
+        if (type === 'delivery') msg += `📍 End: ${address}%0A`;
+        
+        msg += `--------------------------------%0A`;
+        msg += `Aguardo confirmação.`;
 
-        window.open(`https://wa.me/5564999999999?text=${message}`, '_blank');
+        // Enviar
+        const phone = "5564999999999"; // Troque pelo da Tânia
+        window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
     });
 }
 

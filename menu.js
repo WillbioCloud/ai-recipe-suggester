@@ -3,9 +3,29 @@
 */
 
 export const menuData = [
-    // --- EMPADAS NA TIGELA (Grandes / Para Fome de Leão) ---
+    // --- DESTAQUES (Ouro da Casa) ---
     {
         id: 1,
+        category: 'destaque',
+        name: 'Panelinha Goiana (2 Pessoas)',
+        description: 'A joia do cerrado. Arroz, frango, linguiça caseira, pequi, guariroba, muçarela e banana da terra frita.',
+        price: 115.00,
+        image: '/img/panelinha-goiana.jpg',
+        highlight: true
+    },
+    {
+        id: 2,
+        category: 'destaque',
+        name: 'Empadão Goiano (Tigela)',
+        description: 'Servido na tigela de barro. Frango, linguiça, batata, azeitona, lascas de pequi, guariroba e muçarela.',
+        price: 39.00,
+        image: '/img/empadao-goiano.jpg',
+        highlight: true
+    },
+
+    // --- EMPADAS NA TIGELA (Grandes / Para Fome de Leão) ---
+    {
+        id: 3,
         category: 'tigela',
         name: 'Tradicional Grande (Na Tigela)',
         description: 'A gigante! Frango desfiado, batata em cubos, azeitona, linguiça suína e muito queijo. (Sem pequi/guariroba). Aprox. 600g.',
@@ -14,13 +34,21 @@ export const menuData = [
         highlight: false
     },
     {
-        id: 2,
+        id: 4,
         category: 'tigela',
         name: 'Goiana da Tânia (Na Tigela)',
         description: 'A completa: Frango, linguiça, batata, azeitona, lascas de pequi, guariroba e muçarela. O sabor do cerrado.',
         price: 39.00,
         image: '/img/empadao-goiano.jpg',
         highlight: true
+    },
+    {
+        id: 5,
+        category: 'tigela',
+        name: 'Camarão Cremoso',
+        description: 'Camarões selecionados ao molho de queijos finos e catupiry.',
+        price: 45.00,
+        image: '/img/empadao-camarao.jpg'
     },
 
     // --- EMPADAS MÉDIAS (Individuais - Aprox. 300g) ---
@@ -77,6 +105,30 @@ export const menuData = [
         price: 26.00,
         image: '/img/empadao-queijo.jpg',
         highlight: false
+    },
+    {
+        id: 16,
+        category: 'media',
+        name: 'Frango com Catupiry',
+        description: 'Clássica e infalível. Massa podre amanteigada.',
+        price: 24.00,
+        image: '/img/empadao-frango.jpg'
+    },
+    {
+        id: 17,
+        category: 'media',
+        name: 'Carne Seca com Abóbora',
+        description: 'O contraste perfeito do salgado com o adocicado.',
+        price: 28.00,
+        image: '/img/empadao-carne-seca.jpg'
+    },
+    {
+        id: 18,
+        category: 'media',
+        name: 'Palmito (Vegetariana)',
+        description: 'Palmito pupunha em cubos com molho branco especial.',
+        price: 22.00,
+        image: '/img/empadao-palmito.jpg'
     },
 
     // --- PANELINHAS (Para 2 Pessoas) ---

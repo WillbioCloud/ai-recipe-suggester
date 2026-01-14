@@ -61,23 +61,48 @@
                 <h3>Seu Pedido</h3>
                 <button id="close-cart" class="close-btn">&times;</button>
             </div>
-            <div id="cart-items" class="modal-body"></div>
-            <div class="modal-footer">
-                <div class="total-row">
-                    <span>Total:</span>
-                    <span id="cart-total">R$ 0,00</span>
-                </div>
-                <div class="checkout-form">
-                    <input type="text" id="client-name" placeholder="Seu Nome" />
-                    <select id="delivery-type">
-                        <option value="retirada">Vou Retirar</option>
-                        <option value="entrega">Quero Entrega</option>
-                    </select>
-                </div>
-                <button id="checkout-btn" class="btn btn-whatsapp">Finalizar no WhatsApp 📲</button>
+        
+        <div id="cart-items" class="modal-body">
             </div>
+
+        <div class="modal-footer">
+            <div class="total-row">
+                <span>Subtotal:</span>
+                <span id="cart-total">R$ 0,00</span>
+            </div>
+
+            <div class="checkout-form">
+                <label for="order-type">Como deseja receber?</label>
+                <select id="order-type" onchange="toggleAddressField()">
+                    <option value="balcao">🥡 Retirar no Balcão (Viagem)</option>
+                    <option value="mesa">🍽️ Estou na Mesa (Shopping)</option>
+                    <option value="delivery">moto Entrega (Delivery)</option>
+                </select>
+
+                <div id="field-name" class="input-group">
+                    <input type="text" id="client-name" placeholder="Seu Nome Completo" />
+                </div>
+
+                <div id="field-extra" class="input-group hidden">
+                    <input type="text" id="client-address" placeholder="Endereço Completo" />
+                </div>
+                
+                <div id="field-table" class="input-group hidden">
+                    <input type="number" id="table-number" placeholder="Nº da Mesa (ex: 12)" />
+                </div>
+
+                <div class="input-group">
+                    <input type="text" id="client-obs" placeholder="Observações (ex: sem cebola)" />
+                </div>
+            </div>
+
+            <button id="checkout-btn" class="btn btn-whatsapp">
+                <span class="icon">📲</span> Enviar Pedido para Cozinha
+            </button>
+            <h6 class="secure-msg">Pedido direto, sem taxas de app.</h6>
         </div>
     </div>
+</div>
 
     <footer>
         <div class="container">
