@@ -56,50 +56,71 @@
     </div>
 
     <div id="cart-modal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Seu Pedido</h3>
-                <button id="close-cart" class="close-btn">&times;</button>
-            </div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Finalizar Pedido</h3>
+            <button id="close-cart" class="close-btn">&times;</button>
+        </div>
         
         <div id="cart-items" class="modal-body">
             </div>
 
         <div class="modal-footer">
             <div class="total-row">
-                <span>Subtotal:</span>
+                <span>Total a Pagar:</span>
                 <span id="cart-total">R$ 0,00</span>
             </div>
 
             <div class="checkout-form">
-                <label for="order-type">Como deseja receber?</label>
+                <label>Como deseja receber?</label>
                 <select id="order-type" onchange="toggleAddressField()">
-                    <option value="balcao">🥡 Retirar no Balcão (Viagem)</option>
-                    <option value="mesa">🍽️ Estou na Mesa (Shopping)</option>
-                    <option value="delivery">moto Entrega (Delivery)</option>
+                    <option value="" disabled selected>Selecione uma opção...</option>
+                    <option value="delivery">🛵 Entrega (Delivery)</option>
+                    <option value="retirada">🥡 Vou Retirar (Viagem)</option>
+                    <option value="mesa">🍽️ Estou na Mesa (Shopping/Loja)</option>
                 </select>
 
-                <div id="field-name" class="input-group">
-                    <input type="text" id="client-name" placeholder="Seu Nome Completo" />
+                <div id="section-delivery" class="order-section hidden">
+                    <button id="btn-location" class="btn-location" onclick="getLocation()">
+                        📍 Usar minha localização atual
+                    </button>
+                    <p id="location-status" class="status-text"></p>
+                    
+                    <div class="manual-address">
+                        <p class="divider-text">Ou digite o endereço:</p>
+                        <input type="text" id="address-street" placeholder="Rua / Avenida / Hotel" />
+                        <div class="row-inputs">
+                            <input type="text" id="address-number" placeholder="Número" style="width: 30%;" />
+                            <input type="text" id="address-neighborhood" placeholder="Bairro" style="width: 70%;" />
+                        </div>
+                        <input type="text" id="address-ref" placeholder="Ponto de Referência (Ex: portaria do prédio)" />
+                    </div>
                 </div>
 
-                <div id="field-extra" class="input-group hidden">
-                    <input type="text" id="client-address" placeholder="Endereço Completo" />
-                </div>
-                
-                <div id="field-table" class="input-group hidden">
-                    <input type="number" id="table-number" placeholder="Nº da Mesa (ex: 12)" />
+                <div id="section-pickup" class="order-section hidden">
+                    <label>Em qual unidade vai buscar?</label>
+                    <select id="pickup-unit">
+                        <option value="centro">📍 Loja Centro (R. Antônio Coelho de Godoy, 226)</option>
+                        <option value="shopping">🛍️ Shopping Singapura (Av. Cel. Cirilo)</option>
+                        <option value="rioquente">🌊 Rio Quente (Av. Brasil, 3 - Esplanada)</option>
+                    </select>
+                    <p class="info-text">⏰ Tempo médio de preparo: 20-30 min</p>
                 </div>
 
-                <div class="input-group">
-                    <input type="text" id="client-obs" placeholder="Observações (ex: sem cebola)" />
+                <div id="section-table" class="order-section hidden">
+                    <label>Qual o número da sua mesa?</label>
+                    <input type="number" id="table-number" placeholder="Ex: 12" />
+                </div>
+
+                <div class="personal-data">
+                    <input type="text" id="client-name" placeholder="Seu Nome Completo *" />
+                    <input type="text" id="client-obs" placeholder="Alguma observação? (Ex: tirar cebola)" />
                 </div>
             </div>
 
             <button id="checkout-btn" class="btn btn-whatsapp">
-                <span class="icon">📲</span> Enviar Pedido para Cozinha
+                Enviar Pedido
             </button>
-            <h6 class="secure-msg">Pedido direto, sem taxas de app.</h6>
         </div>
     </div>
 </div>

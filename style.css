@@ -364,3 +364,54 @@ nav a:hover { color: var(--primary); }
     /* Mantém o estilo anterior, só garante que o tamanho combine */
     width: 35px; height: 35px;
 }
+
+/* --- Checkout Premium Styles --- */
+.order-section {
+    margin-top: 15px;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    animation: fadeIn 0.3s;
+}
+
+/* Botão de Localização GPS */
+.btn-location {
+    background: #e3f2fd;
+    color: #1565c0;
+    border: 1px dashed #1565c0;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: 0.2s;
+}
+.btn-location:hover { background: #bbdefb; }
+
+/* Quando o GPS acha a localização */
+.btn-location.success {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-color: #2e7d32;
+    border-style: solid;
+}
+
+.divider-text {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #999;
+    margin: 15px 0 10px;
+    position: relative;
+}
+
+.row-inputs { display: flex; gap: 10px; }
+.info-text { font-size: 0.8rem; color: #666; margin-top: 5px; }
+.personal-data { margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; }
+.status-text { font-size: 0.8rem; text-align: center; margin-top: 5px; color: #666; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
