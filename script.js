@@ -287,22 +287,119 @@ if (checkoutBtn) {
 }
 
 /* --- 6. EFEITOS VISUAIS (SCROLL) --- */
+// 1. Efeito Tilt nos Cards (Inclinação 3D ao passar o mouse)
+function initTiltEffect() {
+    const cards = document.querySelectorAll('.menu-item');
+    
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Calcula a inclinação baseada na posição do mouse
+            const rotateX = ((y - centerY) / centerY) * -10; // Max 10 graus
+            const rotateY = ((x - centerX) / centerX) * 10;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+            card.style.zIndex = '10'; // Traz pra frente
+        });
+
+        // Reseta quando o mouse sai
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+            card.style.zIndex = '1';
+            // Pequeno delay para transição suave
+            setTimeout(() => { card.style.transition = 'transform 0.5s ease'; }, 100);
+        });
+
+        // Remove transição no mousemove para ficar instantâneo
+        card.addEventListener('mouseenter', () => {
+            card.style.transition = 'none';
+        });
+    });
+}
+// 2. Engine de Parallax (Controla scroll)
+/* --- ENGINE DE PARALLAX & SCROLL (Versão Expandida) --- */
 window.addEventListener('scroll', () => {
-    // Header transparente apenas na Home e quando no topo
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+
+    // 1. Header Glass
     const header = document.getElementById('main-header');
     if (header && !header.classList.contains('header-scrolled-fixed')) {
-        // Se a página já não tiver a classe fixa (como a pg cardapio), aplica lógica
-        if (window.scrollY > 50) header.classList.add('scrolled');
+        if (scrollY > 50) header.classList.add('scrolled');
         else header.classList.remove('scrolled');
     }
 
-    // Parallax
+    // --- ZONA 1: HERO (Capa) ---
     const bg = document.querySelector('.hero-bg-parallax');
-    if(bg) bg.style.transform = `translateY(${window.scrollY * 0.5}px)`;
+    const heroText = document.querySelector('.hero-text');
+    const floatingItems = document.querySelectorAll('.float-item');
 
-    // Reveal Elements
+    if (bg) {
+        bg.style.transform = `translateY(${scrollY * 0.5}px)`; // Fundo desce
+    }
+    if (heroText) {
+        heroText.style.transform = `translateY(${scrollY * -0.2}px)`; // Texto sobe
+        heroText.style.opacity = 1 - (scrollY / 700);
+    }
+    if (floatingItems) {
+        floatingItems.forEach((item, index) => {
+            const speed = (index + 1) * 0.15; 
+            const direction = index % 2 === 0 ? 1 : -1;
+            item.style.transform = `translateY(${scrollY * speed * direction}px) rotate(${scrollY * 0.1}deg)`;
+        });
+    }
+
+    // --- ZONA 2: SOBRE (História) ---
+    const sectionSobre = document.getElementById('sobre');
+    if (sectionSobre) {
+        const sectionTop = sectionSobre.offsetTop;
+        const dist = scrollY - sectionTop; // Distância relativa
+
+        // Só anima se estiver perto da tela
+        if (scrollY > sectionTop - windowHeight && scrollY < sectionTop + sectionSobre.offsetHeight) {
+            
+            // A. Fundo Texturizado (Move devagar)
+            const sobreBg = document.querySelector('.sobre-bg-parallax');
+            if (sobreBg) sobreBg.style.transform = `translateY(${dist * 0.1}px)`;
+
+            // B. Imagem vs Texto (Velocidades diferentes criam profundidade)
+            const img = document.querySelector('.parallax-img');
+            const txt = document.querySelector('.parallax-text');
+            
+            if (img) img.style.transform = `translateY(${dist * -0.05}px)`; // Sobe levemente
+            if (txt) txt.style.transform = `translateY(${dist * 0.02}px)`;  // Desce levemente
+        }
+    }
+
+    // --- ZONA 3: DESTAQUES (Menu) ---
+    const sectionDestaques = document.getElementById('destaques');
+    if (sectionDestaques) {
+        const sectionTop = sectionDestaques.offsetTop;
+        const dist = scrollY - sectionTop;
+
+        if (scrollY > sectionTop - windowHeight && scrollY < sectionTop + sectionDestaques.offsetHeight) {
+            
+            // Ingredientes flutuantes se mexendo
+            const itemsSec = document.querySelectorAll('.float-sec');
+            itemsSec.forEach((item, index) => {
+                const speed = (index + 2) * 0.08;
+                // Alterna direção: uns sobem, outros descem
+                const direction = index % 2 === 0 ? -1 : 1; 
+                
+                item.style.transform = `translateY(${dist * speed * direction}px) rotate(${dist * 0.05}deg)`;
+            });
+        }
+    }
+
+    // --- REVEAL (Entrada Suave) ---
     document.querySelectorAll('.scroll-reveal').forEach(el => {
         const top = el.getBoundingClientRect().top;
-        if (top < window.innerHeight - 100) el.classList.add('visible');
+        if (top < windowHeight - 100) el.classList.add('visible');
     });
 });
